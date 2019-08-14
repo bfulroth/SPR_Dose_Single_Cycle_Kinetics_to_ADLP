@@ -284,18 +284,18 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     df_final_for_dot['CURVE_VALID'] = ''
 
     # Add an empty column called steady_state_img
-    df_final_for_dot['STEADY_STATE_IMG'] = ''
+    df_final_for_dot['SSC_STEADY_STATE_IMG'] = ''
 
     # Add an empty column called 1to1_img
-    df_final_for_dot['1to1_IMG'] = ''
+    df_final_for_dot['SSC_IMAGE'] = ''
 
     # Add the starting compound concentrations
     df_final_for_dot['TOP_COMPOUND_UM'] = pd.Series(dup_item_for_dot_df(df_cmpd_set, col_name='Test [Cpd] uM',
                                                                  times_dup=num_fc_used))
 
     # Extract the RU Max for each compound using the report point file.
-    df_final_for_dot['RU_TOP_CMPD'] = spr_binding_top_for_dot_file(report_pt_file=path_report_pt,
-    df_cmpd_set=df_cmpd_set, instrument=instrument, fc_used=immobilized_fc_arr, ref_fc_used=ref_fc_used)
+    # df_final_for_dot['RU_TOP_CMPD'] = spr_binding_top_for_dot_file(report_pt_file=path_report_pt,
+    # df_cmpd_set=df_cmpd_set, instrument=instrument, fc_used=immobilized_fc_arr, ref_fc_used=ref_fc_used)
 
     # Extract the steady state data and add to DataFrame
     # Read in the steady state text file into a DataFrame
@@ -367,8 +367,10 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     else:
 
         # Add protein RU
-        protein_ru_dict = {'FC2-1Corr': fc2_protein_RU, 'FC3-1Corr': fc3_protein_RU, 'FC4-1Corr': fc4_protein_RU}
-        df_final_for_dot['PROTEIN_RU'] = df_final_for_dot['FC'].map(protein_ru_dict)
+        # As protein ru varies for each sample the user must fill in this column.
+        # protein_ru_dict = {'FC2-1Corr': fc2_protein_RU, 'FC3-1Corr': fc3_protein_RU, 'FC4-1Corr': fc4_protein_RU}
+        # df_final_for_dot['PROTEIN_RU'] = df_final_for_dot['FC'].map(protein_ru_dict)
+        df_final_for_dot['PROTEIN_RU'] = 'Fill Manually'
 
         # Add protein MW
         protein_mw_dict = {'FC2-1Corr': fc2_protein_MW, 'FC3-1Corr': fc3_protein_MW, 'FC4-1Corr': fc4_protein_MW}
@@ -398,23 +400,28 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
                                     '_' + df_senso_txt['Image File'].str.split('_', expand=True)[5]
 
     # Add steady state image file path
-    # Need to replace /Volumes with //flynn
-    path_ss_img_edit = path_ss_img.replace('/Volumes', '//flynn')
+    # Need to replace /Volumes with //Iron
+    path_ss_img_edit = path_ss_img.replace('/Volumes', '//Iron')
     df_final_for_dot['SS_IMG_ID'] = path_ss_img_edit + '/' + df_ss_txt['Image File']
 
     # Add sensorgram image file path
-    # Need to replace /Volumes with //flynn
-    path_senso_img_edit = path_senso_img.replace('/Volumes', '//flynn')
+    # Need to replace /Volumes with //Iron
+    path_senso_img_edit = path_senso_img.replace('/Volumes', '//Iron')
     df_final_for_dot['SENSO_IMG_ID'] = path_senso_img_edit + '/' + df_senso_txt['Image File']
 
     # Add the Rmax_theoretical.
     # Note couldn't do this before as I needed to add protein MW and RU first.
-    df_final_for_dot['RMAX_THEORETICAL'] = round((df_final_for_dot['MW'] / df_final_for_dot['PROTEIN_MW']) \
-                                           * df_final_for_dot['PROTEIN_RU'], 2)
+    # As this varies for each cycle the user must fill this in manually for now.
+    # df_final_for_dot['RMAX_THEORETICAL'] = round((df_final_for_dot['MW'] / df_final_for_dot['PROTEIN_MW']) \
+    #                                        * df_final_for_dot['PROTEIN_RU'], 2)
+    df_final_for_dot['RMAX_THEORETICAL'] = 'Fill Manually'
 
     # Calculate Percent Binding
-    df_final_for_dot['%_BINDING_TOP'] = round((df_final_for_dot['RU_TOP_CMPD'] / df_final_for_dot[
-        'RMAX_THEORETICAL']) * 100, 2)
+    # For single cycle kinetics this must be filled in manually
+    # df_final_for_dot['%_BINDING_TOP'] = round((df_final_for_dot['RU_TOP_CMPD'] / df_final_for_dot[
+    #     'RMAX_THEORETICAL']) * 100, 2)
+    df_final_for_dot['%_BINDING_TOP'] = ''
+
 
     # Rearrange the columns for the final DataFrame (without images)
     df_final_for_dot = df_final_for_dot.loc[:, ['BROAD_ID', 'PROJECT_CODE', 'CURVE_VALID', 'STEADY_STATE_IMG',
@@ -443,30 +450,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
 
     # Write the comments to the comment sheet.
     comments_list = pd.DataFrame({'Comments':
-                                    ['No binding.',
-                                    'Saturation reached. Fast on/off.',
-                                    'Saturation reached. Fast on/off. Insolubility likely. Removed top.',
-                                    'Saturation reached. Fast on/off. Insolubility likely.',
-                                    'Saturation reached. Fast on/off. Low % binding.',
-                                    'Saturation reached. Fast on/off. Low % binding. Insolubility likely.',
-                                    'Saturation reached. Slow on. Fast off.',
-                                    'Saturation reached. Slow on. Fast off. Insolubility likely.',
-                                    'Saturation reached. Slow on. Slow off.',
-                                    'Saturation reached. Slow on. Slow off. Insolubility likely.',
-                                    'Saturation reached. Fast on. Slow off.',
-                                    'Saturation reached. Fast on. Slow off. Insolubility likely.',
-                                    'Saturation approached. Fast on/off.',
-                                    'Saturation approached. Insolubility likely.',
-                                    'Saturation approached. Fast on/off. Insolubility likely.',
-                                    'Saturation approached. Low % binding.',
-                                    'Saturation approached. Low % binding. Insolubility likely.',
-                                    'Saturation not reached.',
-                                    'Saturation not reached. Insolubility likely.',
-                                    'Saturation not reached. Fast on/off.',
-                                    'Saturation not reached. Fast on/off. Insolubility likely.',
-                                    'Saturation not reached. Low % binding.',
-                                    'Saturation not reached. Low % binding. Insolubility likely.',
-                                    'Superstoichiometric binding.']})
+                                    ['Need to updated this list with single cycle kinetic comments']})
 
     # Convert comments list to DataFrame
     comments_list.to_excel(writer, sheet_name='Sheet2', startcol=0, index=0)
