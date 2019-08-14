@@ -20,11 +20,8 @@ nucleotide: GMPPCP
 raw_data_filename: 181213_7279_resultsAffinity
 directory_folder: Biacore1/Ben/KRAS
 fc2_protein_BIP: BIP-0384-01
-fc2_protein_RU: 2116.5
 fc2_protein_MW: 26870.04
 fc3_protein_BIP: BIP-0501-01
-fc3_protein_RU: 2156.3
 fc3_protein_MW: 26856.02
 fc4_protein_BIP: BIP-0503-01
-fc4_protein_RU: 2178.1
 fc4_protein_MW: 26812.01
