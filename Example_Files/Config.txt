@@ -9,6 +9,7 @@ path_report_pt: Not_used
 
 [meta]
 num_fc_used: 3
+ref_fc_used: 1
 immobilized_fc: 2,3,4
 experiment_date: 2018_12_13
 project_code: 7279
@@ -17,7 +18,7 @@ instrument: Biacore1
 protocol:KRAS_SPR_Assay_v5
 chip_lot: 10271084
 nucleotide: GMPPCP
-raw_data_filename: 181213_7279_resultsAffinity
+raw_data_filename: 181213_7279_results
 directory_folder: Biacore1/Ben/KRAS
 fc2_protein_BIP: BIP-0384-01
 fc2_protein_MW: 26870.04
