@@ -4,7 +4,7 @@ path_ss_img: /Volumes/tdts_users/Informatics and computational research/SPR_Imag
 path_ss_txt: /Volumes/tdts_users/Informatics and computational research/SPR_Image_import/2018_12/181213_7279_resultsAffinity_1-54_PWF/181213_7279_resultsAffinity.txt
 path_senso_img: /Volumes/tdts_users/Informatics and computational research/SPR_Image_import/2018_12/181213_7279_resultsAffinity_1-54_SPF
 path_senso_txt: /Volumes/tdts_users/Informatics and computational research/SPR_Image_import/2018_12/181213_7279_resultsAffinity_1-54_SPF/181213_7279_resultsAffinity.txt
-path_report_pt: /Users/bfulroth/Library/Mobile Documents/com~apple~CloudDocs/Broad Files 2/KRAS Experiments/E181213-1 SPR Affinity; Test Shipment 88 and 89 in KRAS_SPR_Assay_v5/181213_7279_report_pt.xls
+path_report_pt: Not_used
 
 
 [meta]
