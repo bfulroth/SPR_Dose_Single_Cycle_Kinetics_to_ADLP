@@ -468,7 +468,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     cell_format = workbook.add_format()
     cell_format.set_align('center')
     cell_format.set_align('vcenter')
-    worksheet1.set_column('A:AI', 25, cell_format)
+    worksheet1.set_column('A:AJ', 25, cell_format)
 
     # Start preparing to insert the steady state and sensorgram images.
     # Get list of image files from df_ss_txt Dataframe.
