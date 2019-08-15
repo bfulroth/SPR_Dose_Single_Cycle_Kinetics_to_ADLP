@@ -228,7 +228,8 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
         path_senso_img = config.get('paths', 'path_senso_img')
         path_ss_txt = config.get('paths', 'path_ss_txt')
         path_senso_txt = config.get('paths', 'path_senso_txt')
-        path_report_pt = config.get('paths', 'path_report_pt')
+        # Program does not currently use the report pt table.  This will change in the future.
+        #path_report_pt = config.get('paths', 'path_report_pt')
 
         # Get all of the metadata variables
         num_fc_used = config.get('meta','num_fc_used')
@@ -258,13 +259,10 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
         raw_data_filename = config.get('meta','raw_data_filename')
         directory_folder = config.get('meta','directory_folder')
         fc2_protein_BIP = config.get('meta','fc2_protein_BIP')
-        fc2_protein_RU = float(config.get('meta','fc2_protein_RU'))
         fc2_protein_MW = float(config.get('meta','fc2_protein_MW'))
         fc3_protein_BIP = config.get('meta','fc3_protein_BIP')
-        fc3_protein_RU = float(config.get('meta','fc3_protein_RU'))
         fc3_protein_MW = float(config.get('meta','fc3_protein_MW'))
         fc4_protein_BIP = config.get('meta','fc4_protein_BIP')
-        fc4_protein_RU = float(config.get('meta','fc4_protein_RU'))
         fc4_protein_MW = float(config.get('meta','fc4_protein_MW'))
     except:
         raise RuntimeError('Something is wrong with the config file. Please check.')
@@ -352,8 +350,9 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     if ref_fc_used == 3:
 
         # Add protein RU
-        protein_ru_dict = {'FC4-3Corr': fc4_protein_RU}
-        df_final_for_dot['PROTEIN_RU'] = df_final_for_dot['FC'].map(protein_ru_dict)
+        # As protein ru varies for each sample the user must fill in this column.
+        # protein_ru_dict = {'FC4-3Corr': fc4_protein_RU}
+        # df_final_for_dot['PROTEIN_RU'] = df_final_for_dot['FC'].map(protein_ru_dict)
 
         # Add protein MW
         protein_mw_dict = {'FC4-3Corr': fc4_protein_MW}
