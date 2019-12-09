@@ -225,9 +225,13 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
             df_cmpd_set = pd.read_csv(path_master_tbl)
 
         path_ss_img = config.get('paths', 'path_ss_img')
+        path_ss_img = path_ss_img.str.replace("\"", "")
         path_senso_img = config.get('paths', 'path_senso_img')
+        path_senso_img = path_senso_img.str.replace("\"", "")
         path_ss_txt = config.get('paths', 'path_ss_txt')
+        path_ss_txt = path_ss_txt.str.replace("\"", "")
         path_senso_txt = config.get('paths', 'path_senso_txt')
+        path_senso_txt = path_senso_txt.str.replace("\"", "")
         # Program does not currently use the report pt table.  This will change in the future.
         #path_report_pt = config.get('paths', 'path_report_pt')
 
