@@ -213,7 +213,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
         adlp_save_file_path = homedir + '/' + 'desktop' + '/' + save_file
 
     try:
-
+        config_file = config_file.replace("\"", "")
         config = configparser.ConfigParser()
         config.read(config_file)
 
