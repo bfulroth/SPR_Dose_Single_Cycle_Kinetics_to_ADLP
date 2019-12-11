@@ -115,11 +115,20 @@ def spr_setup_sheet(clip):
             """
             Need to sort the df for 8k input such that each cmpd is grouped for 8 needles and sorted by conc. 
             Stategy: 
-            1. Add a row number column. 
-            2. Add logic that address two zero conc. pts for each cmpd run.
-            3. Sort by zero conc., row number, concentration.
+            1. Add a cycle number column
+            2. Add a row number column. 
+            3. Add logic that address two zero conc. pts for each cmpd run.
+            4. Sort by zero conc., row number, concentration.
             """
-            # add column for sorting
+            cycle = 1
+            num_cycles = int(len(df_setup_trim) / 8)
+            ls_cycle = []
+            for i in range(num_cycles):
+                for j in range(int(len(final_df) / num_cycles)):
+                    ls_cycle.append(cycle)
+                cycle += 1
+
+            final_df['cycle'] = pd.Series(ls_cycle)
             final_df['sort_val'] = [i for i in range(len(final_df))]
             final_df['sort_zero'] = ""
 
@@ -137,7 +146,7 @@ def spr_setup_sheet(clip):
                             final_df.loc[index, 'sort_zero'] = zero_count
                             zero_count += 1
 
-            final_df = final_df.sort_values(['sort_zero', 'CONC', 'sort_val'])
+            final_df = final_df.sort_values(['cycle', 'sort_zero', 'CONC', 'sort_val'])
             del final_df['sort_zero']
             del final_df['sort_val']
 
