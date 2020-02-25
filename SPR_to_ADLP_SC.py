@@ -10,8 +10,8 @@ if platform.system() == "Windows":
 else:
     homedir = os.environ['HOME']
 
-CONFIG_FILE = '/Users/bfulroth/Documents/Documents - wm99e-fb9 - 1/190815_Wei_single_cycle_test/Config.txt'
-SAVE_FILE = 'test-1.xlsx'
+CONFIG_FILE = '/Users/bfulroth/Library/Mobile Documents/com~apple~CloudDocs/Documents/Jen Gale (Trouble Shoot SPR Kinetic Upload)/190409_config.txt'
+SAVE_FILE = '/Users/bfulroth/Desktop/190409_spr_sc_jen_draft.xlsx'
 
 
 def dup_item_for_dot_df(df, col_name, times_dup=3, sort=False):
