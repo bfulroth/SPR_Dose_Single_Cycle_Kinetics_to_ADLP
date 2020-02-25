@@ -11,7 +11,7 @@ else:
     homedir = os.environ['HOME']
 
 CONFIG_FILE = '/Users/bfulroth/Library/Mobile Documents/com~apple~CloudDocs/Documents/Jen Gale (Trouble Shoot SPR Kinetic Upload)/190409_config.txt'
-SAVE_FILE = '/Users/bfulroth/Desktop/190409_spr_sc_jen_draft.xlsx'
+SAVE_FILE = '190409_spr_sc_jen_draft.xlsx'
 
 
 def dup_item_for_dot_df(df, col_name, times_dup=3, sort=False):
@@ -391,7 +391,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     # Add the unique ID #
     df_final_for_dot['UNIQUE_ID'] = df_senso_txt['Sample'] + '_' + df_final_for_dot['FC'] + '_' + project_code + \
                                     '_' + experiment_date + \
-                                    '_' + df_senso_txt['Image File'].str.split('_', expand=True)[5]
+                                    '_' + df_senso_txt['Image File'].str.split('_', expand=True)[3]
 
     # Add steady state image file path
     # Need to replace /Volumes with //Iron
