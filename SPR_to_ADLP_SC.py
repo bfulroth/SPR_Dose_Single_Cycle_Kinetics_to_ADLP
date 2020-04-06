@@ -197,6 +197,15 @@ def spr_binding_top_for_dot_file(report_pt_file, df_cmpd_set, instrument, fc_use
 
     return round(df_rpt_pts_trim['RelResp [RU]'], 2)
 
+# Using click to manage the command line interface
+@click.command()
+@click.option('--config_file', prompt="Please paste the path of the configuration file",
+              help="Path of the configuration file. Text file with all of the file paths and meta "
+                   "data for a particular experiment.")
+@click.option('--save_file', prompt="Please type the name of the ADLP result file with an .xlsx extension",
+              help="Name of the ADLP results file which is an Excel file.")
+@click.option('--clip', is_flag=True,
+              help="Option to indicate that the contents of the setup file are on the clipboard.")
 def spr_create_dot_upload_file(config_file, save_file, clip):
     import configparser
 
@@ -484,4 +493,4 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
 
 
 if __name__ == '__main__':
-    spr_create_dot_upload_file(config_file=CONFIG_FILE, save_file=SAVE_FILE, clip=False)
+    spr_create_dot_upload_file()
