@@ -296,6 +296,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
                                                                  times_dup=num_fc_used))
 
     # Extract the RU Max for each compound using the report point file.
+    df_final_for_dot['RU_TOP_CMPD'] = ''
     # df_final_for_dot['RU_TOP_CMPD'] = spr_binding_top_for_dot_file(report_pt_file=path_report_pt,
     # df_cmpd_set=df_cmpd_set, instrument=instrument, fc_used=immobilized_fc_arr, ref_fc_used=ref_fc_used)
 
@@ -416,6 +417,7 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     # Add the Rmax_theoretical.
     # Note couldn't do this before as I needed to add protein MW and RU first.
     # As this varies for each cycle the user must fill this in manually for now.
+    # df_final_for_dot['RMAX_THEORETICAL']
     # df_final_for_dot['RMAX_THEORETICAL'] = round((df_final_for_dot['MW'] / df_final_for_dot['PROTEIN_MW']) \
     #                                        * df_final_for_dot['PROTEIN_RU'], 2)
     df_final_for_dot['RMAX_THEORETICAL'] = 'Fill Manually'
@@ -426,10 +428,9 @@ def spr_create_dot_upload_file(config_file, save_file, clip):
     #     'RMAX_THEORETICAL']) * 100, 2)
     df_final_for_dot['%_BINDING_TOP'] = ''
 
-
     # Rearrange the columns for the final DataFrame (without images)
-    df_final_for_dot = df_final_for_dot.loc[:, ['BROAD_ID', 'PROJECT_CODE', 'CURVE_VALID', 'STEADY_STATE_IMG',
-       '1to1_IMG', 'TOP_COMPOUND_UM', 'RMAX_THEORETICAL', 'RU_TOP_CMPD', '%_BINDING_TOP', 'KD_SS_UM',
+    df_final_for_dot = df_final_for_dot.loc[:, ['BROAD_ID', 'PROJECT_CODE', 'CURVE_VALID', 'SSC_STEADY_STATE_IMG',
+       'SSC_IMAGE', 'TOP_COMPOUND_UM', 'RMAX_THEORETICAL', 'RU_TOP_CMPD', '%_BINDING_TOP', 'KD_SS_UM',
        'CHI2_SS_AFFINITY', 'FITTED_RMAX_SS_AFFINITY', 'KA_1_1_BINDING',
        'KD_LITTLE_1_1_BINDING', 'KD_1_1_BINDING_UM', 'chi2_1_1_binding',
        'U_VALUE_1_1_BINDING', 'FITTED_RMAX_1_1_BINDING', 'COMMENTS', 'FC',
